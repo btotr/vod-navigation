@@ -1,0 +1,237 @@
+html {
+    background-color:#000;
+}
+
+body {
+    font-size:16px;
+    font-family:arial, sans-serif;
+    overflow:hidden;
+    background-color:black;
+}
+
+a:focus,
+button:focus {
+    outline : transparent
+}
+
+video {
+    background-color:#000;    
+    -webkit-transition: -webkit-transform 600ms linear;
+    -webkit-transform: skew(0deg, 0deg) translate(0px, 0) scale(1, 1);
+}
+
+
+video.reflect {
+    border:solid white 15px;
+    -webkit-transform: skew(0deg, -8deg) translate(-284px, -20%) scale(0.3, 0.4);
+    -webkit-box-reflect:below -15px -webkit-gradient(linear, 
+        left top, 
+        left bottom, 
+        from(transparent), 
+        color-stop(
+            0.5, 
+            transparent), 
+        to(white)
+    );
+}
+  
+#overlay {
+    color:#FFF;
+    background-image:url(../images/covers_background.png);
+    background-repeat:repeat-x;
+    overflow:hidden;
+    -webkit-border-radius:8px;
+    -webkit-box-shadow:0px 0px 15px rgba(0,0,0,0.6);
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-delay:1s;
+}
+
+#overlay.hidden {
+    opacity:0;
+    -webkit-transition-duration: 200ms;
+    -webkit-transition-delay:0s;
+}
+
+#overlay h1 {
+    font-size:105%;
+    line-height:40px;
+    overflow:hidden;
+}
+
+#overlay dl dt:first-child {
+    display:none;
+}
+
+#overlay dt:first-child + dd li  {
+    display:inline;
+    color:white;
+    font-size:80%;
+    color:#0077bf;
+}
+
+#overlay dt:first-child + dd li[title="inactive"]  {
+    color:#00263c;    
+}
+
+
+#overlay dd.poster ~ dd {
+    margin:0 10px;;
+    color:#0077bf;
+     float:left;
+}
+
+#overlay dd.poster ~ dt {
+    color:white;
+    float:left;
+    display:block;
+    clear:left;
+    margin-left:16px;
+}
+
+#overlay dd.poster ~ dt:after {
+    content:":";
+}
+
+#overlay img {
+    -webkit-border-radius:5px;
+}
+
+#overlay p {
+    text-align:center;
+    background-color:white;
+    color:#00263c;
+    -webkit-border-radius:8px;
+}
+
+
+#details button {
+    display:block;
+    width:256px;
+    color:white;
+    -webkit-border-radius: 15px;
+    font-size:120%;
+    padding:4px 16px;
+    margin-bottom:15px;
+    background-color:#073560;
+    background-image:url(../images/covers_background.png);
+    background-repeat:repeat-x;
+    border:none;
+}
+
+#details.hidden {
+    opacity:0;
+    -webkit-transition-duration: 200ms;
+    -webkit-transition-delay:0s;
+}
+
+#details {
+    opacity:1;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 1s;
+    -webkit-transition-timing-function: ease-in-out;
+    -webkit-transition-delay:200ms;
+}
+
+#details p {
+    color:white;
+    font-size:120%;
+}
+
+
+#details button:focus,
+#details button:hover {
+    background-image:none;
+    background-color:orange;
+}
+
+#description.hidden {
+    opacity:0;
+    -webkit-transition-duration: 200ms;
+}
+
+#description {
+    opacity:1;
+    position:absolute;
+    overflow:hidden;
+    font-size:110%;
+    color:white;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 1s;
+    -webkit-transition-timing-function: ease-in-out;
+   
+}
+
+#description p {
+    /* TODO */
+    text-overflow:ellipsis;
+}
+
+
+
+#navigation {
+    background-image:url(../images/covers_background.png);
+    background-repeat:repeat-x;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 350ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+#navigation.unfocused #covers,
+#navigation.unfocused #search {
+    opacity:0.4;
+}
+
+#covers {
+	binding: url("bindings/covers/covers.xml#browse");
+}
+
+#covers ul {
+    binding: url("bindings/list/list.xml#list");
+    	
+}
+
+#search { 
+     binding: url("bindings/search/search.xml#search");
+}
+
+
+#search.unfocused #titles li:first-child a {
+    opacity:1;
+    background-color:#0e3754;
+    border:solid 3px white;
+    margin:-3px 0;
+}
+
+
+
+
+#search ul {
+	binding: url("bindings/list/list.xml#list");
+}
+
+
+
+
+#search ul li a.attention  {
+  -webkit-animation-name: grow;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+#arrow-help {
+    position:absolute;
+    z-index:4;
+    top:-110px;
+    left:40px;
+    -webkit-mask-image:none;
+}
+
+
+@-webkit-keyframes grow {
+  0%   { -webkit-transform: scale(1, 1); }
+  50%  { -webkit-transform: scale(1.1, 1.1); }
+  100%   { -webkit-transform: scale(1, 1); }
+}
+
+

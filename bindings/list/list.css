@@ -1,0 +1,19 @@
+
+li {
+    list-style-type:none;
+}
+
+:bound-element li a {
+    color:white;
+    -webkit-border-radius: 15px;
+    overflow:hidden;
+    text-decoration:none;
+    font-size:120%;
+}
+
+li a:hover,
+li a:focus {
+  background-color:orange;
+  
+
+}

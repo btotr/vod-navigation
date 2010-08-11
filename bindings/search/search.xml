@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+	<xbl:binding id="search">
+	    <xbl:handlers>
+			<xbl:handler event="keydown"><![CDATA[
+                if (event.keyIdentifier == "Right") {
+                    if (this.shadowTree.current < 2) {
+                        this.shadowTree.current++;
+                        var pos = this.shadowTree.current*144;
+                        this.shadowTree.getElementById("container").style.left = "-"+pos+"px";
+                        this.shadowTree.getElementsByTagName("ul")[this.shadowTree.current].firstChild.nextSibling.firstChild.focus();
+                    } else {
+                        var keyEvent = document.createEvent('UIEvents');
+                        keyEvent.initEvent('exit', true, true );
+                        this.shadowTree.dispatchEvent(keyEvent);
+                    }
+                }
+                
+                if (event.keyIdentifier == "Left") {
+                    if (this.shadowTree.current > 0 ) {
+                        this.shadowTree.current--;
+                        var pos = this.shadowTree.current*144;
+                        this.shadowTree.getElementById("container").style.left = "-"+pos+"px";
+                         this.shadowTree.getElementsByTagName("ul")[this.shadowTree.current].firstChild.nextSibling.firstChild.focus();                         
+                    }
+                }
+			]]></xbl:handler>
+		</xbl:handlers>
+		<xbl:implementation><![CDATA[
+		    ({
+               current  : 0,
+		    })
+		]]></xbl:implementation>
+		<xbl:template>
+		    <div id="mask">
+    		    <div id="container">
+                    <xbl:content />
+                </div>
+            </div>
+		</xbl:template>
+		<xbl:resources>
+        	<xbl:style><![CDATA[
+                #container {
+                    position:absolute;
+                    -webkit-transition-property: left;
+                    -webkit-transition-duration: 1s;
+                }
+                
+                :bound-element.unfocused {
+                        -webkit-mask-image:none;
+                }
+
+                :bound-element.unfocused a {
+                    opacity:0.15;
+                }
+                
+                :bound-element {
+                    -webkit-mask-image:-webkit-gradient(linear, 
+                         left top, 
+                         right top, 
+                         from(
+                             rgba(0,0,0,1)), 
+                             to(rgba(0,0,0,0)), 
+                             color-stop(60%, 
+                             black    
+                         )
+                     );
+                }
+                
+
+        	    ]]></xbl:style>        	    
+		</xbl:resources>
+	</xbl:binding>
+</xbl:xbl>

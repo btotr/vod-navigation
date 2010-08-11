@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+	    
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    	<title>vod navigation</title>
+        
+        <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="tv, projection, screen" />
+        <link rel="stylesheet" href="stylesheets/layout.css" type="text/css" media="tv, projection, screen" />
+        <link rel="stylesheet" href="stylesheets/pal-widescreen.css" type="text/css" media="tv, projection, screen and (max-width: 1024px)" />
+        <link rel="stylesheet" href="stylesheets/hd-1080.css" type="text/css" media="tv, projection, screen and (max-width: 1920px)" />
+        <link rel="shortcut icon" href="data/favicon.ico" type="image/x-icon" />
+
+        <script type="application/ecmascript" src="scripts/xbl.js"></script>
+        <script type="application/ecmascript" src="scripts/spatialnavigation.js"></script>
+        <script type="application/ecmascript" src="scripts/dataproviders/apple-trailers.js"></script>
+        <script type="application/ecmascript" src="scripts/model.js"></script> 
+        <script type="application/ecmascript" src="scripts/controller.js" id="controller"></script>   
+
+    </head>
+    <body>  
+        <div id="trailer">
+            <div id="overlay" >
+                <h1/>            
+                <dl>
+                    <dt>rating</dt>
+                    <dd>
+                        <ul>
+                            <li title="active">&#x2605;</li>
+                            <li title="active">&#x2605;</li>
+                            <li title="active">&#x2605;</li>
+                            <li title="active">&#x2605;</li>
+                            <li title="inactive">&#x2605;</li> 
+                        </ul>
+                    </dd>
+                    <dt>Posters</dt>
+                    <dd class="poster"><img src="#" alt="" /></dd>
+                    <dt>Actor</dt>
+                    <dd/>
+                    <dt>Genre</dt>
+                    <dd/>
+                    <dt>Price</dt>
+                    <dd>$2.99</dd>
+                </dl> 
+                <p>press <kbd>1</kbd> for more details</p>       
+            </div>
+            <video autoplay="false">
+                <source />  
+            </video>
+        </div>
+        <div id="details" class="hidden">
+            <ul>
+                <li><button>Back to selection</button></li>
+                <li><button>Buy this movie ($2.99)</button></li>
+                <li><button>Add to favourites</button></li>
+            </ul>
+            <p/>            
+        </div>
+        <div id="description" class="hidden">
+            <p/>
+        </div> 
+        <div id="navigation">
+            <img id="arrow-help" src="images/arrow-key-help.png" />
+            <div id="search">
+                <ul id="channels">
+                    <li><a href="#" class="attention">loading ...</a></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                </ul>
+                <ul id="genres">
+                    <li><a href="#">loading ...</a></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                </ul>
+                <ul id="titles">
+                    <li><a href="#">loading ...</a></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                    <li><a href="#"/></li>
+                </ul>
+            </div>
+            <div id="covers">
+                <ul>
+                    <li><a href="#" name=""><img src="" alt="" /></a></li>
+                    <li><a href="#" name=""><img src="" alt="" /></a></li>
+        			<li><a href="#" name=""><img src="" alt="" /></a></li>
+                    <li><a href="#" name=""><img src="" alt="" /></a></li>
+                    <li><a href="#" name=""><img src="" alt="" /></a></li>
+                    <li><a href="#" name=""><img src="" alt="" /></a></li>
+                    <li><a href="#" name=""><img src="" alt="" /></a></li>
+                    
+                    <li><img src="" alt="" /></li>
+                    <li><img src="" alt="" /></li>
+        			<li><img src="" alt="" /></li>
+                    <li><img src="" alt="" /></li>
+                    <li><img src="" alt="" /></li>
+                    <li><img src="" alt="" /></li>
+                    <li><img src="" alt="" /></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

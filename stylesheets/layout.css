@@ -1,0 +1,194 @@
+html {
+    padding:0;
+    margin:0;
+    max-width:1920px;
+    max-height:1080px;
+    
+}
+
+body {
+    padding:0;
+    margin:0;
+    height:100%;
+    width:100%;
+    min-width:1024px;
+    min-height:576px;
+}
+
+video {
+    position:absolute;
+    z-index:0;
+    width:100%;
+    top:-5.56%;
+}
+
+video.fullscreen {
+    position:absolute;
+    z-index:3;
+    top:0;
+    width:100%;
+    height:100%;
+}
+  
+#overlay {
+    position:absolute;
+    z-index:1;
+    right:5%;
+    height:144px;
+    width:320px;
+    top:8.34%;
+    
+}
+
+#overlay h1 {
+    position:relative;
+    float:left;
+    left:16px;
+    top:4px;
+    width:180px;
+    height:40px;
+    margin:4px;
+}
+
+#overlay dl {
+    margin-right:32px;
+    margin-left:9px;
+}
+
+#overlay dt {
+    display:none;
+}
+
+#overlay dd {
+    margin-top:8px;
+    margin-left:16px;
+}
+
+/* rating */
+#overlay dt:first-child + dd {
+    position:absolute;
+    left:164px;
+    top:-8px;
+}
+
+
+#overlay img {
+    position:relative;
+    float:right;
+    top:32px;
+    margin:0 -14px 4px 4px;
+    width:48px;
+    height:65px;  
+}
+
+#overlay p {
+    position:relative;
+    clear:both;
+    top:18px;
+    left:16px;
+    margin-right:32px;
+}
+
+#details {
+    float:right;
+    height:0px;
+    width:512px;
+}
+
+#details p {
+    overflow:hidden;
+    margin:25px 64px 0 0; 
+    height:156px;
+}
+
+#details ul {
+    padding:0;
+    margin-top:64px;
+}
+
+#description {
+    top:73%;
+    left:71px;
+    width:230px;
+    height:120px;
+    z-index:4;
+}
+
+
+#navigation {
+    position:relative;
+    top:66.67%;
+    clear:both;
+    margin-top:-4px;
+    z-index:1;
+    height:192px;
+ 
+}
+
+#covers {
+    position:relative;
+    z-index:1;
+    width:71.88%;
+    height:100%;
+    margin:0;
+    padding:0;
+
+}
+
+#covers ul  {
+    position:relative;
+    top:-8px;
+    left: 16px;
+    padding:0;
+}
+
+#covers li {
+    float:left;
+    margin:8px 4px;
+}
+
+
+#covers li img {
+    width:80px;
+    height:96px;
+}
+
+#search {
+    position:relative;
+    z-index:0;
+    height:100%;
+    width:28.12%;
+    float:left;
+    margin:0;
+}
+
+
+#search ul {
+    position:absolute;
+    width:128px;
+    padding:0;
+}
+
+#search ul a {
+    padding:0 6px;
+}
+
+ul#channels {
+    left:64px;
+}
+
+ul#genres {
+    left:208px;
+}
+
+ul#titles {
+    width:208px;
+    left:352px;
+}
+
+#search ul li a {
+    display:block;
+    height:32px;
+    line-height:32px;
+    overflow:hidden;
+}

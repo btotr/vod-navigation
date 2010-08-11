@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+	
+	
+	<xbl:binding id="list">
+	    <xbl:handlers>
+	    
+			<xbl:handler event="keyup"><![CDATA[
+                if (event.keyIdentifier == "Enter") {
+                   this.shadowTree.setActive(this.shadowTree.currentFocusedItem+this.shadowTree.offset)        
+                   return false;
+                }
+                if (event.keyIdentifier == "Down" && !this.shadowTree.customEvent) {  
+                    if (!this.shadowTree.fixed) { // scroll focus
+                        if (this.shadowTree.currentFocusedItem < this.shadowTree.children.length-1 && this.shadowTree.currentFocusedItem < this.shadowTree.model.getLength()-1) {
+                            this.shadowTree.currentFocusedItem++;
+                        } else {
+                            if (this.shadowTree.rotate) {
+                                this.shadowTree.offset++;  
+                                if (this.shadowTree.fullscroll) { // TODO fullscroll not only with rotate
+                                    this.shadowTree.offset = this.shadowTree.offset + this.shadowTree.children.length-1;
+                                    this.shadowTree.currentFocusedItem = 0;
+                                } 
+                            } else {
+                                 if (this.shadowTree.offset+this.shadowTree.currentFocusedItem < this.shadowTree.model.getLength()-1 ) 
+                                   this.shadowTree.offset++;   
+                                   if (this.shadowTree.model.getLength()-1 < this.shadowTree.children.length) 
+                                   return true; // stop propagation        
+                            }
+                        }
+                    } else { // fixed focus
+                      this.shadowTree.offset++; 
+                      if (this.shadowTree.offset > this.shadowTree.model.getLength()-1 && !this.shadowTree.rotate) this.shadowTree.offset--;
+                    }        
+                    this.shadowTree.change()
+
+                }
+
+                if (event.keyIdentifier == "Up"&& !this.shadowTree.customEvent) {
+                    if (!this.shadowTree.fixed) { // scroll focus
+                        if (this.shadowTree.currentFocusedItem > 0) {
+                            this.shadowTree.currentFocusedItem--;
+                         } else {
+                             if (this.shadowTree.rotate){
+                                 this.shadowTree.offset--;
+                                 if (this.shadowTree.offset < 0)  {
+                                     this.shadowTree.offset =  this.shadowTree.model.getLength()-1;
+                                 }
+                             } else {
+                                 if (this.shadowTree.offset > 0) this.shadowTree.offset--;
+                             }
+                             if (this.shadowTree.fullscroll) {
+                                 this.shadowTree.offset = this.shadowTree.offset - this.shadowTree.children.length+1;
+                                 if (this.shadowTree.offset < 0)  this.shadowTree.offset =  this.shadowTree.model.getLength() + this.shadowTree.offset
+                                 this.shadowTree.currentFocusedItem = this.shadowTree.children.length-1;
+                             }
+                        }
+                    } else { // fixed focus
+                        this.shadowTree.offset--;
+                        if (this.shadowTree.rotate) {
+                            if (this.shadowTree.offset < 0)  {
+                                this.shadowTree.offset =  this.shadowTree.model.getLength()-1
+                            }
+                        }
+                        if (this.shadowTree.offset < 0 && !this.shadowTree.rotate) this.shadowTree.offset++;    
+                    }
+
+                    /*if (getFocusedElement() == children[0]) {
+                        getFocusedElement().generateEvent("onfocus")// Simulate focus
+                    }*/
+                    
+                    
+
+                    this.shadowTree.change()
+                
+                }
+                
+                if (!this.shadowTree.customEvent) this.customEvent = false
+                
+                event.stopPropagation();
+
+			]]></xbl:handler>
+		</xbl:handlers>
+		
+		<xbl:implementation><![CDATA[
+		    ({
+		        change  : function(disablefocus){
+		            for (var i=0, l=this.children.length;i<l;i++) {
+                        if (i+this.offset == this.active) this.children[i].className = "active";
+                        else this.children[i].className = "";
+                        this.bind(this.children[i],  this.model.getItem(this.getCurrent(i)));
+                    }
+                    
+                    if (!disablefocus) {
+                        this.children[this.getFocusedItem()].children[0].focus();  
+                    
+                        var event = document.createEvent('UIEvents');
+                        event.initEvent('change', true, true );
+                        event.init = true;
+                        this.dispatchEvent(event);
+                    }
+                    
+                    
+		        },
+		        
+		        customEvent : false,
+		        
+                setModel : function(model){
+                    this.model = model;  
+                    this.ondata()
+                },
+                ondata : function(e) {
+                    var length = this.model.getLength();
+  
+                    if (length == 0) {
+                        this.clear();
+                        return false;
+                    }
+
+                    this.currentFocusedItem = 0;
+                    this.offset = 0;
+                    this.active = -1;
+                    
+                    // enable focus 
+                    /*for (var i in this.children) {
+                        var child = this.children[i];
+                        child.focusable = true;
+                    }*/
+
+                    this.change(true);
+                                    
+                },
+                offset : 0,
+                active : -1,
+                currentFocusedItem : 0,
+                getFocusedItem : function(){
+                    return this.currentFocusedItem;
+                },
+                clear : function(visible) {
+                    //todo
+                },
+
+                setCurrentFocus : function(item){
+                    this.currentFocusedItem = item;
+                },
+
+                getMorePrevious : function(){
+                    return this.offset > 0;
+                },
+
+                getMoreNext : function(){
+                    return this.offset < this.model.getLength()-this.children.length;
+                },
+
+                getTotalItems : function() {
+                    return this.model.getLength();
+                },
+
+                getCurrentItemIndex : function(){
+                    return (this.currentFocusedItem + this.offset)%this.model.getLength()+1;
+                },
+
+                setActive : function(index) {
+                    active = index
+                    this.change(true);
+                },
+
+                setOffset : function(index){
+                    this.currentFocusedItem = index;
+                    this.offset = 0;
+                    //if (index > this.children.length) {
+                        this.offset = index
+                        this.currentFocusedItem = 0;
+                        if (index > this.getTotalItems()-this.children.length) {
+                            this.offset = this.getTotalItems()-this.children.length
+                            this.currentFocusedItem = index - (this.getTotalItems()-this.children.length)
+                        }
+                    //}
+                    this.change(true);
+                },             
+
+                getCurrent : function(i, source) {
+                    var current;
+                    if (this.fixed) {  // fixed focus
+                        current = i+this.offset - this.currentFocusedItem;
+                        if (rotate) { 
+                            if (current < 0)  current = this.model.getLength() + current
+                            current = current%this.model.getLength()
+                        } 
+                        if (current < 0 || current >= this.model.getLength()) {
+                            for (var t in this.children[i].children) {
+                                var child = this.children[i].children[t]
+                                if (child.className != "overlay") {
+                                    child.innerHTML = ""
+                                }
+                            }   
+                            return false;
+                        }
+                    } else { // scroll focus
+                        current = i+this.offset;
+                        if (this.rotate) current = current%this.model.getLength();
+                    }
+                    if (current < 0 || current >= this.model.getLength()) return false;
+
+                    return current
+                },
+                counter : 0,
+                lastKey : null,
+                keys : {
+                    56: "abc",
+                    57: "def",
+                    52: "ghi",
+                    53: "jkl",
+                    54: "mno",
+                    49: "pqrs",
+                    50: "tuv",
+                    51: "wxyz",
+                }
+		    })
+		]]></xbl:implementation>
+		<xbl:template>
+                <xbl:content class="list" allow-selectors-through="true"  />
+		</xbl:template>
+		<xbl:resources>
+        	<xbl:style src="list.css" />
+		</xbl:resources>
+	</xbl:binding>	
+	
+</xbl:xbl>

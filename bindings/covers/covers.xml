@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<xbl:xbl
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xbl="http://www.w3.org/ns/xbl">
+	<xbl:binding id="browse">
+	    <xbl:handlers id="coverHandlers">
+			<xbl:handler event="keydown"><![CDATA[
+			        var list =  this.shadowTree.getElementsByTagName("ul")[0];
+			        var length = list.children.length/2;
+			        var generateBubble = false;
+    		  
+                 if (event.keyIdentifier == "Right") {      
+                     if (list.currentFocusedItem < length-1) {
+                         list.currentFocusedItem++;
+                     } 
+                  } 
+                  
+                  if (event.keyIdentifier == "Left") {
+                      if (list.currentFocusedItem == 0) {
+                           var keyEvent = document.createEvent('UIEvents');
+                           keyEvent.initEvent('exit', true, true );
+                           this.shadowTree.dispatchEvent(keyEvent);
+                           return
+                      }    
+                    
+                      list.currentFocusedItem--;
+                  }
+                  
+                  if (event.keyIdentifier == "Down") {   
+                      generateBubble = true
+                     list.customEvent = true;
+                     list.style.webkitTransitionDuration = "350ms";
+                     list.change(true);
+                     list.style.top = "-128px";
+                      
+                     setTimeout(function(){
+                          var oldFocus = list.getFocusedItem();
+                          list.setOffset(list.getCurrentItemIndex()+length-oldFocus-1);
+                          list.setCurrentFocus(oldFocus);
+                          list.children[oldFocus].children[0].focus(); 
+                          list.style.webkitTransitionDuration = "0s";
+                          list.style.marginTop = "0px";
+                          list.style.top = "0px";
+                          list.change()
+                          generateFocus()
+                      },300)
+                     
+                      return
+                  } 
+
+                  if (event.keyIdentifier == "Up") {    
+                      list.customEvent = true;
+                      
+                        if(list.getCurrentItemIndex()-(length+1) > 0){
+                            generateBubble = true
+                            list.style.webkitTransitionDuration = "350ms";
+                            list.style.marginTop = "-128px"
+                            var oldFocus = list.getFocusedItem();
+                            list.setOffset(list.getCurrentItemIndex()-length-oldFocus-1);
+                            list.change(true)
+                            list.setCurrentFocus(oldFocus);
+                            list.style.top = "128px"
+                            setTimeout(function(){
+                                list.style.webkitTransitionDuration = "0s";
+                                list.style.top = "0px";
+                                list.style.marginTop = "0px"
+                            },300)
+                            list.change()
+                            generateFocus()
+                            return
+                        }
+                    }
+                    
+                    function generateFocus(){
+                        var domFocusInEvent = document.createEvent('UIEvents');
+                        domFocusInEvent.initEvent('DOMFocusIn', true, true );
+                        event.target.children[0].dispatchEvent(domFocusInEvent);
+                    }
+
+                    list.change()
+                    
+    		]]></xbl:handler>
+		</xbl:handlers>	
+		<xbl:implementation><![CDATA[
+		    ({
+                a : function(){
+                    window.console.log("test")
+                }
+		    })
+		]]></xbl:implementation>
+		<xbl:template>
+            <xbl:content />
+		</xbl:template>
+		<xbl:resources>
+			<xbl:style src="covers.css" />
+		</xbl:resources>
+	</xbl:binding>
+</xbl:xbl>
