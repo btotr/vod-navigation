@@ -124,8 +124,6 @@ window.addEventListener("load", function(){
         document.getElementById("navigation").addClassName("unfocused"); 
         document.getElementsByTagName("video")[0].addClassName("reflect");
         document.getElementById("description").addClassName("hidden");
-        
-        
         details.removeClassName("hidden"); 
        details.getElementsByTagName("button")[0].focus();
     }
@@ -149,11 +147,12 @@ window.addEventListener("load", function(){
         
         
         dataprovider.getVideoSrc(function(){
+            console.log("playing:" + dataprovider.videoSrc)
             document.getElementById("details").children[1].textContent = dataprovider.description;
             var video = document.getElementsByTagName("video")[0]
             video.setAttribute("src", dataprovider.videoSrc);
             video.autobuffer = true
-            video.currentTime = 150
+            //video.currentTime = 150
             video.load();
         })
     }
