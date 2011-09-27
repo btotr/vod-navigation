@@ -36,6 +36,7 @@ video.reflect {
 }
   
 #overlay {
+    display:none;
     color:#FFF;
     background-image:url(../images/covers_background.png);
     background-repeat:repeat-x;
