@@ -1,6 +1,10 @@
 function Dataprovider(callback) {
     var dataprovider = this;
-    var database = openDatabase("vodnavigation", "0.1");    
+    var database;
+    try { // http://www.w3.org/TR/webdatabase/ no longer supported
+        database = window.openDatabase("vodnavigation", "0.2", "vodnavigation", 1048576);    
+    } catch (ignore){}
+       
     var trailers;
 
 
